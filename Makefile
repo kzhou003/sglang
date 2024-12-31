@@ -5,6 +5,12 @@ help:
 	@echo "Available targets:"
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
+install-sglang: ## Install SGLang via pip
+	pip install "sglang[all]" --find-links https://flashinfer.ai/whl/cu121/torch2.4/flashinfer/
+	
+install-sglang-src: ## Install SGLang from source
+	pip install -e "python[all]" --find-links https://flashinfer.ai/whl/cu121/torch2.4/flashinfer/
+
 check-deps: ## Check and install required Python formatting dependencies
 	@command -v isort >/dev/null 2>&1 || (echo "Installing isort..." && pip install isort)
 	@command -v black >/dev/null 2>&1 || (echo "Installing black..." && pip install black)
